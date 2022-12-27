@@ -5,7 +5,13 @@ Integrate python features into nu.
 ## Features
 ### Python venv
 
-This Package adds functionality to use python venvs.
+This attempts to emulate bash's `source .venv/bin/activate`:
+- update the path to prefer the venv's binaries
+- clear the `PYTHONHOME`
+- export `VIRTUAL_ENV` with a path to the venv
+
+And adds a few extra features:
+- adds `src` and `tests` to the `PYTHONPATH`
 
 It allows stacking venvs (only the top one is active, but you can switch back a lot easier).
 

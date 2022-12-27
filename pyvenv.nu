@@ -4,6 +4,7 @@
 #   dir: path # venv directory
 #   old_PATH  # <-> $env.PATH
 #   old_PYTHONHOME  # <-> $env.PYTHONHOME
+#   old_PYTHONPATH: <list<str>> # <-> $env.PYTHONPATH
 
 
 # deactivate the newest venv
@@ -46,6 +47,7 @@ export def-env activate [
 			dir: $dir
 			old_PATH: $env.PATH
 			old_PYTHONHOME: ($env | get -i PYTHONHOME)
+			old_PYTHONPATH: ($env | get -i PYTHONPATH)
 		}
 	)
 	let-env PATH = (
@@ -53,5 +55,9 @@ export def-env activate [
 		| prepend $'($dir)/bin'
 	)
 	let-env VIRTUAL_ENV = $dir  # for other scripts, etc
-	let-env PYTHONHOME = null  # unlet dosnt exist..
+	let-env PYTHONHOME = null
+	let-env PYTHONPATH = ([
+		(if ($'($env.PWD)/tests' | path exists) { $'($env.PWD)/tests' }),
+		(if ($'($env.PWD)/src' | path exists) { $'($env.PWD)/src' }),
+	] | flatten | compact)
 }
