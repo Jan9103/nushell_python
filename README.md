@@ -21,9 +21,23 @@ Usage:
 The Package adds env-var conversions for:
 - `PYTHONPATH`
 
-### Command wrappers
+### PIP
 
-It wraps a few command to provide completions and parse the output:
-- `pylint`
-- `flake8`
-- `mypy`
+- [ ] Tab completion for integrated commands
+- [ ] Parse output from `list`, etc
+- `updateall`
+
+### Pylint
+
+- `parsed pylint`
+- tab completion
+
+### flake8
+
+- `parsed flake8`
+- tab completion
+
+### mypy
+
+- `parsed mypy`
+- tab completion
