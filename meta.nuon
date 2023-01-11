@@ -6,7 +6,8 @@
 	url: 'https://github.com/jan9103/nushell_python'
 	min_nu_version: [0 72 0]
 	max_nu_version: [0 74 0]
-	prefixed_modules: ['pyvenv', 'flake8', 'mypy', 'pylint']
+	prefixed_modules: ['pyvenv']
+	modules: ['flake8', 'mypy', 'pylint']
 	min_packer_version: [0 3 0]
 	max_packer_version: [0 3 0]
 }

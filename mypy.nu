@@ -4,7 +4,7 @@ export def 'parsed mypy' [
 	...paths: path
 ] {
 	^mypy ([
-		(if $config_file {$'--config-file ($config_file)'})
+		(if $config_file != null {$'--config-file ($config_file)'})
 	] | compact) --show-error-codes $paths
 	| lines
 	| parse '{file}:{line}: {type}: {description}  [{error_code}]'
@@ -42,9 +42,9 @@ export extern 'mypy' [
 	--disallow-subclassing-any # Disallow subclassing values of type 'Any' when defining classes (inverse: --allow-subclassing-any)
 	--allow-subclassing-any
 	--disallow-untyped-calls # Disallow calling functions without type annotations from functions with type annotations (inverse: --allow-untyped-calls)
-	-- allow-untyped-calls
+	--allow-untyped-calls
 	--disallow-untyped-defs # Disallow defining functions without type annotations or with incomplete type annotations (inverse: --allow-untyped-defs)
-	-- allow-untyped-defs
+	--allow-untyped-defs
 	--disallow-incomplete-defs # Disallow defining functions with incomplete type annotations (inverse: --allow-incomplete-defs)
 	--allow-incomplete-defs
 	--check-untyped-defs # Type check the interior of functions without type annotations (inverse: --no-check-untyped-defs)
