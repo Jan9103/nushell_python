@@ -5,7 +5,7 @@
 	license: 'MIT'
 	url: 'https://github.com/jan9103/nushell_python'
 	min_nu_version: [0 72 0]
-	max_nu_version: [0 80 0]
+	max_nu_version: [0 81 0]
 	prefixed_modules: ['pyvenv']
 	modules: ['flake8_cmd', 'mypy_cmd', 'pylint_cmd']
 	min_packer_version: [0 3 0]
