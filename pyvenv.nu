@@ -16,14 +16,16 @@ export def-env deactivate [] {
 		| reverse | get -i 0 | default {}
 	)
 
-	let-env PYTHON_VENVS = ( # remove it from the list
-		$env | get -i PYTHON_VENVS | default []
-		| drop 1
-	)
+	load-env {
+		PYTHON_VENVS: ( # remove it from the list
+			$env | get -i PYTHON_VENVS | default []
+			| drop 1
+		)
 
-	# reset env vars
-	let-env PATH = ($venv | get -i old_PATH | default $env.PATH)
-	let-env PYTHONHOME = ($venv | get -i old_PYTHONHOME | default ($env | get -i PYTHONHOME))
+		# reset env vars
+		PATH: ($venv | get -i old_PATH | default $env.PATH)
+		PYTHONHOME: ($venv | get -i old_PYTHONHOME | default ($env | get -i PYTHONHOME))
+	}
 }
 
 # list the active venvs
@@ -41,23 +43,25 @@ export def-env activate [
 		} else {$dir}
 	)
 	let dir = ($dir | path expand)
-	let-env PYTHON_VENVS = (
-		$env | get -i PYTHON_VENVS | default []
-		| append {
-			dir: $dir
-			old_PATH: $env.PATH
-			old_PYTHONHOME: ($env | get -i PYTHONHOME)
-			old_PYTHONPATH: ($env | get -i PYTHONPATH)
-		}
-	)
-	let-env PATH = (
-		$env.PATH
-		| prepend $'($dir)/bin'
-	)
-	let-env VIRTUAL_ENV = $dir  # for other scripts, etc
-	let-env PYTHONHOME = null
-	let-env PYTHONPATH = ([
-		(if ($'($env.PWD)/tests' | path exists) { $'($env.PWD)/tests' }),
-		(if ($'($env.PWD)/src' | path exists) { $'($env.PWD)/src' }),
-	] | flatten | compact)
+	load-env {
+		PYTHON_VENVS: (
+			$env | get -i PYTHON_VENVS | default []
+			| append {
+				dir: $dir
+				old_PATH: $env.PATH
+				old_PYTHONHOME: ($env | get -i PYTHONHOME)
+				old_PYTHONPATH: ($env | get -i PYTHONPATH)
+			}
+		)
+		PATH: (
+			$env.PATH
+			| prepend $'($dir)/bin'
+		)
+		VIRTUAL_ENV: $dir  # for other scripts, etc
+		PYTHONHOME: null
+		PYTHONPATH: ([
+			(if ($'($env.PWD)/tests' | path exists) { $'($env.PWD)/tests' }),
+			(if ($'($env.PWD)/src' | path exists) { $'($env.PWD)/src' }),
+		] | flatten | compact)
+	}
 }
