@@ -8,7 +8,7 @@
 
 
 # deactivate the newest venv
-export def-env deactivate [] {
+export def --env deactivate [] {
 	# TODO: use return or something instead of default if nu ever adds it..
 
 	let venv = ( # the venv you want to deactivate
@@ -34,7 +34,7 @@ export def list [] {
 }
 
 # register a venv
-export def-env activate [
+export def --env activate [
 	dir: path = ''  # the venv directory (contains bin/ and pyvenv.cfg) (default: autodetect)
 ] {
 	let dir = (
